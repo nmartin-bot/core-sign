@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 
 interface Contract {
@@ -14,16 +14,30 @@ interface Contract {
 interface Props {
   contract: Contract
   token: string
+  contractHtml: string
 }
 
-export default function SignaturePage({ contract, token }: Props) {
+export default function SignaturePage({ contract, token, contractHtml }: Props) {
   const vars = contract.content || {}
   const sigRef = useRef<SignatureCanvas>(null)
+  const sigContainerRef = useRef<HTMLDivElement>(null)
+  const [canvasWidth, setCanvasWidth] = useState(600)
   const [fullName, setFullName] = useState('')
   const [accepted, setAccepted] = useState(false)
   const [signing, setSigning] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    const update = () => {
+      if (sigContainerRef.current) {
+        setCanvasWidth(sigContainerRef.current.offsetWidth)
+      }
+    }
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
   const clearSig = () => sigRef.current?.clear()
 
@@ -99,17 +113,14 @@ export default function SignaturePage({ contract, token }: Props) {
           </div>
         </div>
 
-        {/* Aperçu du contrat (iframe) */}
+        {/* Aperçu du contrat */}
         <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e5e5e5', overflow: 'hidden', marginBottom: 20 }}>
           <div style={{ padding: '12px 20px', borderBottom: '1px solid #f0f0f0', fontSize: 12, fontWeight: 600, color: '#999', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Document à signer
           </div>
-          <div style={{ padding: 20 }}>
-            <iframe
-              src={`/api/contract-preview?token=${token}`}
-              style={{ width: '100%', height: 600, border: 'none', borderRadius: 6, background: '#fafafa' }}
-            />
-          </div>
+          <div style={{ padding: 20, maxHeight: 600, overflowY: 'auto' }}
+            dangerouslySetInnerHTML={{ __html: contractHtml }}
+          />
         </div>
 
         {/* Zone de signature */}
@@ -149,11 +160,11 @@ export default function SignaturePage({ contract, token }: Props) {
                   Effacer
                 </button>
               </div>
-              <div style={{ border: '1px solid #e0e0e0', borderRadius: 8, overflow: 'hidden', background: '#fafafa' }}>
+              <div ref={sigContainerRef} style={{ border: '1px solid #e0e0e0', borderRadius: 8, overflow: 'hidden', background: '#fafafa' }}>
                 <SignatureCanvas
                   ref={sigRef}
                   penColor="#1a1a1a"
-                  canvasProps={{ width: 700, height: 140, style: { width: '100%', height: 140, display: 'block' } }}
+                  canvasProps={{ width: canvasWidth, height: 140, style: { width: '100%', height: 140, display: 'block' } }}
                   backgroundColor="rgba(0,0,0,0)"
                 />
               </div>

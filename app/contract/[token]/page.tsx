@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
+import { renderContractTemplate } from '@/lib/contract-template'
 import SignaturePage from './SignaturePage'
 
 const supabaseAdmin = createClient(
@@ -29,5 +30,6 @@ export default async function Page({ params }: { params: Promise<{ token: string
     )
   }
 
-  return <SignaturePage contract={contract as any} token={token} />
+  const contractHtml = renderContractTemplate((contract as any).content || {})
+  return <SignaturePage contract={contract as any} token={token} contractHtml={contractHtml} />
 }

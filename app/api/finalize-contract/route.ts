@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'Untitled Studio <contracts@untitled-studio.com>',
+          from: 'Untitled Studio <contracts@updates.untitled-hr.com>',
           to: recipients,
           subject: `Contrat signé — ${vars.project_name || contract.title}`,
           html: confirmHtml,
