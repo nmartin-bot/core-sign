@@ -29,7 +29,7 @@ export function renderContractTemplate(v: Partial<ContractVariables>): string {
 <meta charset="UTF-8" />
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #1a1a1a; background: #fff; padding: 24px 20px; max-width: 680px; margin: 0 auto; }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #1a1a1a; background: #fff; padding: 20px 16px; }
   .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid #1a1a1a; flex-wrap: wrap; gap: 8px; }
   .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
   .logo span { color: #6366f1; }

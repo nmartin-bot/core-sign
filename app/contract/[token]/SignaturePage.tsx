@@ -92,16 +92,7 @@ export default function SignaturePage({ contract, token, contractHtml }: Props) 
 
   return (
     <div style={{ minHeight: '100vh', background: '#f5f5f5' }}>
-
-      {/* Header */}
-      <div style={{ background: '#fff', borderBottom: '1px solid #e5e5e5', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: '-0.3px' }}>
-          UN<span style={{ color: '#6366f1' }}>TI</span>TLED
-        </span>
-        <span style={{ fontSize: 13, color: '#666' }}>Contrat à signer</span>
-      </div>
-
-      <div style={{ maxWidth: 760, margin: '0 auto', padding: '32px 20px 80px' }}>
+      <div style={{ maxWidth: 640, margin: '0 auto', padding: '20px 12px 60px' }}>
 
         {/* Info contrat */}
         <div style={{ background: '#fff', borderRadius: 12, padding: '20px 24px', marginBottom: 20, border: '1px solid #e5e5e5' }}>
